@@ -58,20 +58,20 @@ stage ('Build') {
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.9.97:/opt/apache-tomcat-8.5.57/webapps/webapp.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.127.175.98:/opt/apache-tomcat-8.5.57/webapps/webapp.war'
               }      
            }       
     }
     
-    
     stage ('DAST') {
       steps {
         sshagent(['zap']) {
-         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@15.207.54.164 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.233.133.74:8080/webapp/" || true'
+         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@15.207.54.164 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.127.175.98:8080/webapp/" || true'
         }
       }
     }
-    stage ('Container-scanner') {
+    
+    stage ('Anchore-Container-scanner') {
         steps {
             writeFile file: 'anchore_images', text: imageLine
             anchore name: 'anchore_images'
