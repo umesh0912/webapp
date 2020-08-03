@@ -1,5 +1,8 @@
 pipeline {
   agent any 
+  environment {
+    def imageLine = 'alpine:latest'
+  }
   tools {
     maven 'Maven'
   }
@@ -10,6 +13,11 @@ pipeline {
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
             ''' 
+      }
+    }
+    stage ('git-checkout') {
+      steps {
+        git 'https://github.com/adarshreddy94/webapp.git'
       }
     }
     
@@ -32,7 +40,7 @@ pipeline {
       }
     }
 
-    stage ('SAST') {
+   stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
           sh 'mvn sonar:sonar'
@@ -50,7 +58,7 @@ stage ('Build') {
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.233.133.74:/opt/apache-tomcat-8.5.57/webapps/webapp.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.9.97:/opt/apache-tomcat-8.5.57/webapps/webapp.war'
               }      
            }       
     }
@@ -62,6 +70,12 @@ stage ('Build') {
          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@15.207.54.164 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.233.133.74:8080/webapp/" || true'
         }
       }
+    }
+    stage ('Container-scanner') {
+        steps {
+            writeFile file: 'anchore_images', text: imageLine
+            anchore name: 'anchore_images'
+        }
     }
     
   }
