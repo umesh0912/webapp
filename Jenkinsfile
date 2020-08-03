@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    def imageLine = 'httpd'
+    def imageLine = 'tomcat'
   }
   tools {
     maven 'Maven'
