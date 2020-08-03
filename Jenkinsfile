@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    def imageLine = 'wordpress'
+    def imageLine = 'httpd'
   }
   tools {
     maven 'Maven'
