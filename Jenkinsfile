@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    def imageLine = 'sonarqube:latest'
+    def imageLine = 'adarshreddydocker/devsecops:test'
   }
   tools {
     maven 'Maven'
