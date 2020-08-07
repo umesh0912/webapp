@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    def imageLine = 'adarshreddydocker/devsecops'
+    def imageLine = 'adarshreddydocker/devsecops:test'
   }
   tools {
     maven 'Maven'
