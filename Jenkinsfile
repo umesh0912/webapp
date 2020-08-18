@@ -4,7 +4,7 @@ pipeline {
     def imageLine = 'adarshreddydocker/devsecops:test'
   }
   tools {
-    maven 'Maven'
+    maven 'maven'
   }
   stages {
     stage ('Initialize') {
