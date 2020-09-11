@@ -59,15 +59,7 @@ stage ('Build') {
         }
       }
     }
-    
-    stage ('Aqua Microscanner') {
-      node(){
-        steps {
-           aquaMicroscanner imageName:'adarshreddydocker/devsecops:test', notCompliesCmd: 'exit 1', onDisallowed: 'pass'
-      }
-    }
-   }
-    
+   
     stage ('Anchore-Container-scanner') {
         steps {
             writeFile file: 'anchore_images', text: imageLine
