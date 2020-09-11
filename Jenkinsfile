@@ -61,10 +61,12 @@ stage ('Build') {
     }
     
     stage ('Aqua Microscanner') {
-      steps {
+      node(){
+        steps {
            aquaMicroscanner imageName:'adarshreddydocker/devsecops:test', notCompliesCmd: 'exit 1', onDisallowed: 'pass'
       }
     }
+   }
     
     stage ('Anchore-Container-scanner') {
         steps {
