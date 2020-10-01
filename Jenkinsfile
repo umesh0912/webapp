@@ -1,8 +1,5 @@
 pipeline {
-  agent any 
-  environment {
-    def imageLine = 'adarshreddydocker/devsecops:test'
-  }
+  agent any
   tools {
     maven 'maven'
   }
@@ -69,13 +66,6 @@ stage ('Build') {
          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@3.236.102.28 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.236.209.93:8080/webapp/" || true'
         }
       }
-    }
-   
-    stage ('Anchore-Container-scanner') {
-        steps {
-            writeFile file: 'anchore_images', text: imageLine
-            anchore name: 'anchore_images'
-        }
     }
     
   }
