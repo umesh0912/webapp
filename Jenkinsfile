@@ -35,9 +35,7 @@ stage ('Build') {
     
     stage ('Deploy-To-Tomcat') {
             steps {
-           sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@65.1.229.50:/opt/apache-tomcat-9.0.44/webapps'
-              }      
+           deploy adapters: [tomcat9(credentialsId: 'a5fb49e1-0231-47e3-b410-11025f016b03', path: '', url: 'http://65.1.229.50:8080/')], contextPath: '/opt/apache-tomcat-9.0.44/webapps', war: '/*.war'    
            }       
     }
     
