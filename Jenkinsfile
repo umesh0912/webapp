@@ -24,7 +24,15 @@ pipeline {
       sh 'mvn clean package'
     }
   }
-     stage ('Deploy-To-Tomcat') {
+        stage ('SAST') {
+      steps {
+        withSonarQubeEnv('sonar') {
+          sh 'mvn sonar:sonar'
+          sh 'cat target/sonar/report-task.txt'
+        }
+      }
+    }
+      stage ('Deploy-To-Tomcat') {
             steps {
             sh "curl -v -u devsecops:^^B45$$e!77 -T /var/lib/jenkins/workspace/webapp_Pipeline/target 'http:// 65.1.229.50:8080//manager/text/deploy?path=/pipeline_webapp'"
            }       
