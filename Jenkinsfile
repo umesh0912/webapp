@@ -56,9 +56,11 @@ stage ('Check-Git-Secrets') {
     
     stage ('Deploy-To-Tomcat') {
             steps {
-            sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@3.236.209.93:/opt/apache-tomcat-8.5.57/webapps/webapp.war'
+             sshagent(['tomcat']) {
+            sh 'scp -o StrictHostKeyChecking=no target/*.war devsecopsqa@65.1.229.50:/opt/apache-tomcat-9.0.44/webapps/webapp.war'
            }       
          }
+    }
     
     stage ('DAST') {
       steps {
