@@ -55,7 +55,7 @@ stage ('Build') {
     
     stage ('Deploy-To-Tomcat') {
             steps {
-            deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://65.1.229.50:8080')], contextPath: '/opt/apache-tomcat-9.0.44/webapps', war: '**/*.war'  
+            sh "curl -v -u tomcat:tomcat -T /var/lib/jenkins/workspace/webapp_Pipeline/target 'http:// 65.1.229.50:8080//manager/text/deploy?path=/pipeline_webapp'"
            }       
     }
     
