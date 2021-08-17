@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    def imageLine = 'debian:latest'
+    def imageLine = 'adarshreddydocker/devsecops:newwebapp'
   }
 
   tools {
