@@ -41,7 +41,7 @@ pipeline {
   
     stage ('Kiuwan') {
       steps {
-       kiuwan connectionProfileUuid: 'n2i0-2KgZ'
+       kiuwan connectionProfileUuid: 'n2i0-2KgZ', measure: 'NONE'
     }
   }  
     
