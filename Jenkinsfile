@@ -57,6 +57,12 @@ pipeline {
       sh 'mvn clean package'
     }
   }
+  
+    stage ('Kiuwan') {
+      steps {
+      sh 'kiuwan connectionProfileUuid: 'n2i0-2KgZ''
+    }
+  }  
     
     stage ('Deploy-To-Tomcat') {
             steps {
