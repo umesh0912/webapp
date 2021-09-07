@@ -24,14 +24,6 @@ pipeline {
       }
     }
 
-    stage ('Check-Git-Secrets') {
-      steps {
-        sh 'rm trufflehog || true'
-        sh 'docker run gesellix/trufflehog --json  https://github.com/adarshreddy24/webapp.git > trufflehog'
-        sh 'cat trufflehog'
-      }
-    }
-
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
@@ -76,15 +68,7 @@ pipeline {
         steps {
          sh "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://65.1.229.50:8080/WebApp/" 
         }
-    }
-    
-    stage ('Anchore-Container-Security-scanner') {
-        steps {
-            writeFile file: 'anchore_images', text: imageLine
-            anchore name: 'anchore_images'
-        }
-    }
-
+    }   
     
   }
 }
