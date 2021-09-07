@@ -60,7 +60,7 @@ pipeline {
   
     stage ('Kiuwan') {
       steps {
-      sh 'kiuwan connectionProfileUuid: 'n2i0-2KgZ''
+       kiuwan connectionProfileUuid: 'n2i0-2KgZ'
     }
   }  
     
