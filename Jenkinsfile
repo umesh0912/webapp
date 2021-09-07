@@ -20,17 +20,17 @@ pipeline {
     
     stage ('git-checkout') {
       steps {
-        git 'https://github.com/adarshreddy24/webapp.git'
+        git 'https://github.com/umesh0912/webapp.git'
       }
     }
 
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/adarshreddy24/webapp/master/owasp-dependency-check.sh" '
+         sh 'wget "https://raw.githubusercontent.com/umesh0912/webapp/master/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/workspace/DevSecOps_Pipeline/odc-reports/dependency-check-report.xml'
+         sh 'cat /var/lib/jenkins/workspace/devsecops_kiuwan_integration/odc-reports/dependency-check-report.xml'
         
       }
     }
